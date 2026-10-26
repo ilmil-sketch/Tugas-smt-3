@@ -1,5 +1,5 @@
 :root { 
-    --primary: #87adff; 
+  --primary: #87adff; 
 } 
 
 /* Reset Dasar */
@@ -17,7 +17,7 @@ body {
   flex-direction: column;
   font-family: "Georgia", serif, -apple-system, sans-serif;
   color: #021f4e;
-  background-color: #ffffff;
+  background-color: #f8fafc;
   line-height: 1.6;
 }
 
@@ -40,13 +40,14 @@ nav {
   padding: 0.75rem 2rem;
   position: sticky;
   top: 0;
+  z-index: 50;
 }
 
 .nav-links {
   display: flex;
   justify-content: center;
   list-style: none;
-  gap: 25rem;
+  gap: 2.5rem; /* Sebelumnya 25rem, diperbaiki agar tidak merusak layout */
 }
 
 .nav-links a {
@@ -60,33 +61,79 @@ nav {
   color: var(--primary);
 }
 
+/* Card Grid (Peralatan & Teknik) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 1.5rem 1rem;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Styling Elemen Card */
+.card {
+  background: var(--primary);
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #0f172a;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: #043b3e;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #021f4e;
+}
+
+.card p {
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
 /* Konten Utama (Main) */
 main {
-  flex: 1; /* Mendorong footer otomatis ke bagian paling bawah layar */
-  max-width: 700px;
+  flex: 1; /* Mendorong footer ke bawah */
+  max-width: 1000px;
   width: 100%;
-  margin: 2rem auto;
+  margin: 1rem auto 2.5rem;
   padding: 0 1.5rem;
 }
 
-main h5 {
+/* Penyesuaian card di dalam main */
+main .card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+main .card h5 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #0f172a;
+  color: #021f4e;
 }
 
-main ol {
+main .card ol {
   padding-left: 1.25rem;
   margin-bottom: 1rem;
+  color: #1e293b;
 }
 
-main ol li {
+main .card ol li {
   margin-bottom: 0.35rem;
 }
 
-main p {
+main .card p {
   color: #4b0c02;
+  font-weight: 500;
 }
 
 /* Footer */
@@ -99,36 +146,12 @@ footer {
   font-size: 0.875rem;
 }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.card {
-  background: var(--primary);
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-  border-color: #043b3e;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
+/* Responsif Mobile / Layar Kecil */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 1rem;
+  nav {
+    padding: 1rem;
   }
 
-  /* Tambahkan baris ini agar link Beranda & Berita turun ke bawah (vertikal) */
   .nav-links {
     flex-direction: column;
     gap: 0.75rem;
