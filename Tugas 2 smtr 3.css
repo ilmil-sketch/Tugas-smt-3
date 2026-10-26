@@ -17,7 +17,7 @@ body {
   flex-direction: column;
   font-family: "Georgia", serif, -apple-system, sans-serif;
   color: #021f4e;
-  background-color: #f8fafc;
+  background-color: #ffffff;
   line-height: 1.6;
 }
 
@@ -47,7 +47,7 @@ nav {
   display: flex;
   justify-content: center;
   list-style: none;
-  gap: 2.5rem; /* Sebelumnya 25rem, diperbaiki agar tidak merusak layout */
+  gap: 2.5rem; /* Aman dan tidak membuat layout jebol */
 }
 
 .nav-links a {
@@ -61,24 +61,22 @@ nav {
   color: var(--primary);
 }
 
-/* Card Grid (Peralatan & Teknik) */
+/* 4 Card Grid */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  padding: 2rem 1.5rem 1rem;
+  padding: 2rem 1.5rem;
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Styling Elemen Card */
 .card {
   background: var(--primary);
   border: 1px solid #cbd5e1;
   border-radius: 12px;
   padding: 1.5rem;
-  color: #0f172a;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -89,51 +87,44 @@ nav {
 }
 
 .card h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
   margin-bottom: 0.5rem;
-  color: #021f4e;
 }
 
 .card p {
-  color: #1e293b;
   font-size: 0.95rem;
+  color: #1e293b;
 }
 
-/* Konten Utama (Main) */
+/* Konten Utama (Langkah-langkah di bawah Card) */
 main {
-  flex: 1; /* Mendorong footer ke bawah */
+  flex: 1; /* Mendorong footer ke bagian paling bawah */
   max-width: 1000px;
   width: 100%;
   margin: 1rem auto 2.5rem;
   padding: 0 1.5rem;
 }
 
-/* Penyesuaian card di dalam main */
-main .card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-}
-
-main .card h5 {
+main h5 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #021f4e;
+  color: #0f172a;
 }
 
-main .card ol {
+main ol {
   padding-left: 1.25rem;
   margin-bottom: 1rem;
-  color: #1e293b;
 }
 
-main .card ol li {
+main ol li {
   margin-bottom: 0.35rem;
 }
 
-main .card p {
+main p {
   color: #4b0c02;
-  font-weight: 500;
 }
 
 /* Footer */
@@ -146,7 +137,7 @@ footer {
   font-size: 0.875rem;
 }
 
-/* Responsif Mobile / Layar Kecil */
+/* Responsif Mobile */
 @media (max-width: 768px) {
   nav {
     padding: 1rem;
