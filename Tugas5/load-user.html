@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data User Github</title>
+    <style>
+        body {font-family: sans-serif; padding: 20px; }
+        #loading {display: none; color: blue; }
+        .error {color: red;}
+        .profile-card { border: 1px solid #ccc; padding: 15px; margin-top: 15px; border-radius: 8px; }
+        .profile-card img { width: 90px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <!--- form input cari username (nyambung konsep todo html)-->
+    <form id="search-form">
+        <input id="github-input" placeholder="Masukkan username Github ..." required>
+        <button type="submit">Cari</button> 
+    </form>
+
+    <div id="loading">Loading...</div>
+    <div id="user-container"></div> 
+
+    <script src="load-user.js"></script>
+</body>
+</html>
