@@ -2,7 +2,6 @@ const todoForm = document.querySelector('#todo-form');
 const todoInput = document.querySelector('#todo-input');
 const todoList = document.querySelector('#todo-list');
 
-// console.log(todoForm);
 todoForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -17,11 +16,10 @@ todoForm.addEventListener('submit', (e) => {
 
     const btnRemove = document.createElement('button');
     btnRemove.textContent = 'Hapus';
-    btnRemove.addEventListener('click', (e) => li.remove());
+    btnRemove.addEventListener('click', () => li.remove());
 
     li.append(span, btnRemove);
     todoList.appendChild(li);
 
     todoInput.value = '';
-    // console.log(todoText);
-})
+});
