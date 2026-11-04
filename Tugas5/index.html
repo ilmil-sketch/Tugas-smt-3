@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pencarian Profil GitHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="card-container">
+    <h2>Pencarian Profil GitHub</h2>
+    
+    <form id="search-form">
+      <input type="text" id="username-input" placeholder="Masukkan username GitHub..." required autocomplete="off">
+      <button type="submit">Cari</button>
+    </form>
+
+    <div id="loading" class="status-msg" style="display: none;">Memuat data profil...</div>
+    <div id="error-msg" class="status-msg error" style="display: none;"></div>
+
+    <div id="profile-result" class="profile-card" style="display: none;">
+      <img id="avatar" src="" alt="Avatar Pengguna">
+      <h3 id="name"></h3>
+      <p id="bio" class="bio"></p>
+      
+      <div class="repo-badge">
+        <span>Repositori Publik:</span>
+        <strong id="public-repos">0</strong>
+      </div>
+
+      <a id="profile-link" href="#" target="_blank" rel="noopener noreferrer">Buka Profil GitHub</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
