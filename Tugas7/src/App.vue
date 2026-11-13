@@ -7,36 +7,39 @@ const cartStore = useCartStore()
 
 <template>
   <div id="app">
-    <!-- Navbar / Menu Navigasi Atas -->
+    <!-- Navbar Toko Buku -->
     <header class="navbar">
       <div class="navbar-brand">
-        <h1>📚 Pustaka & Toko Buku</h1>
+        <h1>📚 Book Shop</h1>
       </div>
       <nav class="navbar-menu">
         <RouterLink to="/" class="nav-link">Beranda</RouterLink>
-        <RouterLink to="/buku-catatan" class="nav-link">Catatan Buku</RouterLink>
-        
-        <!-- Diperbaiki di sini agar tidak ada tag span di dalam RouterLink yang bentrok -->
         <RouterLink to="/keranjang" class="nav-link">
           🛒 Keranjang ({{ cartStore.totalItems }})
         </RouterLink>
       </nav>
     </header>
 
-    <!-- Tempat Tampilnya Halaman -->
+    <!-- Notifikasi Melayang (Toast Notification) -->
+    <transition name="fade">
+      <div v-if="cartStore.notification" class="toast-notification">
+        <span>{{ cartStore.notification }}</span>
+      </div>
+    </transition>
+
+    <!-- Konten Utama -->
     <main class="main-content">
       <RouterView />
     </main>
 
-    <!-- Footer Sederhana -->
+    <!-- Footer -->
     <footer class="footer">
-      <p>&copy; 2026 Toko Buku & Catatan Bacaan. (Vue 3 & Vite)</p>
+      <p>&copy; 2026 Toko Buku Online. Dibuat dengan Vue 3 & Vite.</p>
     </footer>
   </div>
 </template>
 
 <style>
-/* CSS Global untuk Aplikasi */
 body {
   margin: 0;
   padding: 0;
@@ -49,9 +52,9 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
-/* Navbar Styling */
 .navbar {
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
@@ -63,8 +66,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
 .navbar-brand h1 {
@@ -78,7 +79,6 @@ body {
   display: flex;
   gap: 20px;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -100,13 +100,40 @@ body {
   background-color: #ebf8ff;
 }
 
-/* Main Content Area */
+/* Styling Toast Notification Melayang di Pojok Kanan Bawah */
+.toast-notification {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #2b6cb0;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .main-content {
   flex: 1;
   padding: 20px;
 }
 
-/* Footer Styling */
 .footer {
   text-align: center;
   padding: 20px;

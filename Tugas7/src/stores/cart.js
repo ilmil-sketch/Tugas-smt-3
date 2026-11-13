@@ -2,46 +2,66 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
-  // State: daftar item di dalam keranjang
   const items = ref([])
+  const notification = ref(null) // State untuk menyimpan pesan notifikasi aktif
 
-  // Action: menambahkan produk ke keranjang
-  const addToCart = (product) => {
+  // Tambah produk ke keranjang + munculkan notifikasi
+  const addItem = (product) => {
     const existingItem = items.value.find(item => item.id === product.id)
     if (existingItem) {
       existingItem.quantity += 1
     } else {
       items.value.push({ ...product, quantity: 1 })
     }
+
+    // Tampilkan notifikasi
+    showNotification(`"${product.name}" berhasil ditambahkan ke keranjang! 📚`)
   }
 
-  // Action: mengurangi atau menghapus item dari keranjang
-  const removeFromCart = (productId) => {
-    const index = items.value.findIndex(item => item.id === productId)
-    if (index !== -1) {
-      if (items.value[index].quantity > 1) {
-        items.value[index].quantity -= 1
-      } else {
-        items.value.splice(index, 1)
+  // Fungsi helper untuk memunculkan dan otomatis menghilangkan notifikasi dalam 3 detik
+  const showNotification = (message) => {
+    notification.value = message
+    setTimeout(() => {
+      if (notification.value === message) {
+        notification.value = null
       }
+    }, 3000)
+  }
+
+  const increaseQuantity = (productId) => {
+    const item = items.value.find(item => item.id === productId)
+    if (item) item.quantity += 1
+  }
+
+  const decreaseQuantity = (productId) => {
+    const item = items.value.find(item => item.id === productId)
+    if (item && item.quantity > 1) {
+      item.quantity -= 1
+    } else if (item && item.quantity === 1) {
+      removeItem(productId)
     }
   }
 
-  // Getter: total jumlah item di keranjang
+  const removeItem = (productId) => {
+    items.value = items.value.filter(item => item.id !== productId)
+  }
+
   const totalItems = computed(() => {
     return items.value.reduce((total, item) => total + item.quantity, 0)
   })
 
-  // Getter: total harga keseluruhan
   const totalPrice = computed(() => {
     return items.value.reduce((total, item) => total + (item.price * item.quantity), 0)
   })
 
-  return {
-    items,
-    addToCart,
-    removeFromCart,
-    totalItems,
-    totalPrice
+  return { 
+    items, 
+    notification, 
+    addItem, 
+    increaseQuantity, 
+    decreaseQuantity, 
+    removeItem, 
+    totalItems, 
+    totalPrice 
   }
 })

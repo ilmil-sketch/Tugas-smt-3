@@ -1,47 +1,58 @@
 <script setup>
 import { useCartStore } from '../stores/cart'
 
-// Menggunakan Pinia store keranjang
 const cartStore = useCartStore()
 </script>
 
 <template>
   <div class="keranjang-container">
-    <h2>Keranjang Belanja Anda</h2>
+    <h2>Keranjang Belanja Buku</h2>
 
-    <!-- Kondisi jika keranjang kosong -->
-    <div v-if="cartStore.items.length === 0" class="empty-cart">
-      <p>Keranjang belanja kamu masih kosong.</p>
-      <router-link to="/" class="btn-shop">Mulai Belanja</router-link>
-    </div>
-
-    <!-- Kondisi jika ada item di keranjang -->
-    <div v-else class="cart-content">
+    <div v-if="cartStore.items.length > 0" class="cart-content">
       <div class="cart-list">
         <div v-for="item in cartStore.items" :key="item.id" class="cart-item">
-          <img :src="item.image" :alt="item.name" class="cart-item-image" />
-          <div class="cart-item-details">
+          <img :src="item.image" :alt="item.name" class="cart-img" />
+          
+          <div class="cart-details">
             <h4>{{ item.name }}</h4>
             <p class="item-price">Rp {{ item.price.toLocaleString('id-ID') }}</p>
           </div>
-          <div class="cart-item-action">
-            <span class="quantity">Jumlah: {{ item.quantity }}</span>
-            <button @click="cartStore.removeFromCart(item.id)" class="btn-remove">
-              Kurangi / Hapus
-            </button>
+
+          <!-- Kontrol Jumlah (Tambah & Kurang Angka) -->
+          <div class="quantity-control">
+            <button @click="cartStore.decreaseQuantity(item.id)" class="btn-qty">-</button>
+            <span class="qty-number">{{ item.quantity }}</span>
+            <button @click="cartStore.increaseQuantity(item.id)" class="btn-qty">+</button>
           </div>
+
+          <div class="item-subtotal">
+            <p>Rp {{ (item.price * item.quantity).toLocaleString('id-ID') }}</p>
+          </div>
+
+          <button @click="cartStore.removeItem(item.id)" class="btn-remove">Hapus</button>
         </div>
       </div>
 
-      <!-- Bagian Ringkasan Total Belanja -->
+      <!-- Ringkasan Belanja -->
       <div class="cart-summary">
-        <h3>Ringkasan Belanja</h3>
-        <p>Total Item: <strong>{{ cartStore.totalItems }} pcs</strong></p>
-        <p class="total-price">Total Harga: <strong>Rp {{ cartStore.totalPrice.toLocaleString('id-ID') }}</strong></p>
-        <button class="btn-checkout" @click="alert('Checkout berhasil!')">
+        <h3>Ringkasan Pesanan</h3>
+        <div class="summary-row">
+          <span>Total Item:</span>
+          <span><strong>{{ cartStore.totalItems }} buku</strong></span>
+        </div>
+        <div class="summary-row total">
+          <span>Total Harga:</span>
+          <span><strong>Rp {{ cartStore.totalPrice.toLocaleString('id-ID') }}</strong></span>
+        </div>
+        <button class="btn-checkout" @click="alert('Pesanan berhasil diproses!')">
           Checkout Sekarang
         </button>
       </div>
+    </div>
+
+    <div v-else class="empty-cart">
+      <p>Keranjang belanjaan kamu masih kosong nih, yuk pilih buku dulu di Beranda! 📚</p>
+      <router-link to="/" class="btn-explore">Lihat Katalog Buku</router-link>
     </div>
   </div>
 </template>
@@ -51,29 +62,13 @@ const cartStore = useCartStore()
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .keranjang-container h2 {
-  margin-bottom: 20px;
   color: #2c3e50;
-}
-
-.empty-cart {
   text-align: center;
-  padding: 40px;
-  background: #f9f9f9;
-  border-radius: 8px;
-}
-
-.btn-shop {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #42b883;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 500;
+  margin-bottom: 25px;
 }
 
 .cart-content {
@@ -82,99 +77,158 @@ const cartStore = useCartStore()
   gap: 20px;
 }
 
-.cart-list {
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cart-img {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-details {
+  flex: 1;
+  min-width: 150px;
+}
+
+.cart-details h4 {
+  margin: 0 0 5px 0;
+  color: #2d3748;
+  font-size: 1rem;
+}
+
+.item-price {
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Tombol Kontrol Angka */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.btn-qty {
+  background: white;
+  border: 1px solid #cbd5e1;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-qty:hover {
+  background: #e2e8f0;
+}
+
+.qty-number {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.item-subtotal {
+  font-weight: bold;
+  color: #319795;
+}
+
+.btn-remove {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-remove:hover {
+  background: #f87171;
+  color: white;
+}
+
+/* Ringkasan */
+.cart-summary {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  gap: 15px;
-}
-
-.cart-item-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.cart-item-details {
-  flex: 1;
-}
-
-.cart-item-details h4 {
-  margin: 0 0 5px 0;
-  font-size: 1rem;
-  color: #333;
-}
-
-.item-price {
-  color: #666;
-  margin: 0;
-}
-
-.cart-item-action {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-.quantity {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.btn-remove {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.btn-remove:hover {
-  background-color: #c0392b;
-}
-
-.cart-summary {
-  background: #fdfdfd;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.total-price {
-  font-size: 1.1rem;
+.cart-summary h3 {
+  margin: 0 0 10px 0;
   color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: #4a5568;
+}
+
+.summary-row.total {
+  font-size: 1.1rem;
+  color: #2d3748;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 10px;
 }
 
 .btn-checkout {
-  background-color: #3498db;
+  background-color: #3182ce;
   color: white;
   border: none;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
   margin-top: 10px;
+  transition: background 0.2s;
 }
 
 .btn-checkout:hover {
-  background-color: #2980b9;
+  background-color: #2b6cb0;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  color: #718096;
+}
+
+.btn-explore {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #3182ce;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
