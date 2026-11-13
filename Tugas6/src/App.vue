@@ -30,7 +30,7 @@ const cartStore = useCartStore()
 
     <!-- Footer Sederhana -->
     <footer class="footer">
-      <p>&copy; 2026 Toko Buku & Catatan Bacaan. Dibuat dengan Vue 3 & Vite.</p>
+      <p>&copy; 2026 Toko Buku & Catatan Bacaan. (Vue 3 & Vite)</p>
     </footer>
   </div>
 </template>
