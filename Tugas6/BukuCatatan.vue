@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue/dist/vue.d.mts'
 
 // State untuk form input
 const judul = ref('')
