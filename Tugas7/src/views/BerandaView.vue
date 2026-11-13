@@ -16,14 +16,14 @@ const products = ref([
   {
     id: 2,
     name: 'Alvaska',
-    price: 95000,
+    price: 99000,
     image: '/Alvaska 1.jpg',
     description: 'Kisah awal perjalanan Alvaska yang penuh intrik dan perjuangan anak muda.'
   },
   {
     id: 3,
     name: 'Alvaska 2',
-    price: 98000,
+    price: 99000,
     image: '/Alvaska 2.jpg',
     description: 'Kelanjutan kisah emosional dan babak baru kehidupan Alvaska.'
   },
@@ -37,21 +37,21 @@ const products = ref([
   {
     id: 5,
     name: 'Dikta & Hukum',
-    price: 99000,
+    price: 95000,
     image: '/Dikta & Hukum.jpg',
     description: 'Novel best-seller tentang dinamika hukum, perjodohan, dan ketulusan.'
   },
   {
     id: 6,
     name: 'Dunia Anna',
-    price: 105000,
+    price: 65000,
     image: '/Dunia Anna.jpg',
     description: 'Petualangan filosofis dan penjelajahan makna hidup yang mendalam.'
   },
   {
     id: 7,
     name: 'Eccedentesias 7',
-    price: 89000,
+    price: 99000,
     image: '/Eccedentesias7.jpg',
     description: 'Kisah tentang menyembunyikan luka di balik senyuman.'
   },
@@ -65,35 +65,35 @@ const products = ref([
   {
     id: 9,
     name: 'Laut Bercerita',
-    price: 120000,
+    price: 100000,
     image: '/Laut Bercerita.jpg',
     description: 'Karya masterpiece Leila S. Chudori tentang sejarah dan pencarian keadilan.'
   },
   {
     id: 10,
     name: 'Patah Hati Tan Malaka',
-    price: 85000,
+    price: 99000,
     image: '/Patah Hati Tan Malaka.jpg',
     description: 'Esai reflektif dan sastra perenungan jiwa yang sunyi.'
   },
   {
     id: 11,
     name: 'Sejarah Peradaban Dunia Kuno',
-    price: 135000,
+    price: 75000,
     image: '/Sejarah Peradaban Dunia Kuno.jpg',
     description: 'Buku referensi lengkap menelusuri jejak awal peradaban umat manusia.'
   },
   {
     id: 12,
     name: 'Seniman (Puisi Seni Patah Hati)',
-    price: 79000,
+    price: 89500,
     image: '/Seniman (Puisi Seni Patah Hati).jpg',
     description: 'Kumpulan diksi puitis yang merangkum rasa kehilangan dan keindahan.'
   },
   {
     id: 13,
     name: 'Seporsi Mie Ayam Sebelum Mati',
-    price: 88000,
+    price: 75000,
     image: '/Seporsi Mie Ayam Sebelum Mati.jpg',
     description: 'Novel fiksi kontemporer dengan sudut pandang unik dan menyentuh.'
   },
