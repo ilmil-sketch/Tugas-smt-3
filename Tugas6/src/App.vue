@@ -1,7 +1,7 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 import { useCartStore } from './stores/cart'
 
-// Mengambil data total item dari Pinia store untuk badge keranjang
 const cartStore = useCartStore()
 </script>
 
@@ -10,33 +10,39 @@ const cartStore = useCartStore()
     <!-- Navbar / Menu Navigasi Atas -->
     <header class="navbar">
       <div class="navbar-brand">
-        <h1>Tugas 6 - Vue Shop</h1>
+        <h1>📚 Pustaka & Toko Buku</h1>
       </div>
-      <nav class="navbar-links">
-        <router-link to="/" class="nav-link">Beranda</router-link>
-        <router-link to="/keranjang" class="nav-link">
-          Keranjang 
-          <span v-if="cartStore.totalItems > 0" class="badge">
-            {{ cartStore.totalItems }}
-          </span>
-        </router-link>
+      <nav class="navbar-menu">
+        <RouterLink to="/" class="nav-link">Beranda</RouterLink>
+        <RouterLink to="/buku-catatan" class="nav-link">Catatan Buku</RouterLink>
+        
+        <!-- Diperbaiki di sini agar tidak ada tag span di dalam RouterLink yang bentrok -->
+        <RouterLink to="/keranjang" class="nav-link">
+          🛒 Keranjang ({{ cartStore.totalItems }})
+        </RouterLink>
       </nav>
     </header>
 
-    <!-- Tempat halaman views akan dirender secara dinamis oleh router -->
+    <!-- Tempat Tampilnya Halaman -->
     <main class="main-content">
-      <router-view />
+      <RouterView />
     </main>
+
+    <!-- Footer Sederhana -->
+    <footer class="footer">
+      <p>&copy; 2026 Toko Buku & Catatan Bacaan. Dibuat dengan Vue 3 & Vite.</p>
+    </footer>
   </div>
 </template>
 
 <style>
-/* CSS Global / Dasar */
+/* CSS Global untuk Aplikasi */
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
+  padding: 0;
+  background-color: #f8fafc;
+  font-family: Arial, sans-serif;
+  color: #1e293b;
 }
 
 #app {
@@ -45,57 +51,68 @@ body {
   min-height: 100vh;
 }
 
-/* Styling Navbar */
+/* Navbar Styling */
 .navbar {
-  background-color: #2c3e50;
-  color: white;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .navbar-brand h1 {
-  margin: 0;
   font-size: 1.25rem;
+  margin: 0;
+  color: #2c3e50;
+  font-weight: 700;
 }
 
-.navbar-links {
+.navbar-menu {
   display: flex;
   gap: 20px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-link {
-  color: white;
   text-decoration: none;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  position: relative;
+  color: #64748b;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+  color: #3182ce;
+  background-color: #f1f5f9;
+}
+
 .nav-link.router-link-active {
-  background-color: #34495e;
+  color: #3182ce;
+  background-color: #ebf8ff;
 }
 
-/* Badge jumlah item di keranjang */
-.badge {
-  background-color: #e74c3c;
-  color: white;
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: 10px;
-  margin-left: 5px;
-  font-weight: bold;
-}
-
-/* Styling Konten Utama */
+/* Main Content Area */
 .main-content {
   flex: 1;
-  padding: 20px 0;
+  padding: 20px;
+}
+
+/* Footer Styling */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  color: #94a3b8;
+  font-size: 0.85rem;
 }
 </style>
