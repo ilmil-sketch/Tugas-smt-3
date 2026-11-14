@@ -13,7 +13,7 @@ defineEmits(['add-to-cart'])
 
 <template>
   <div class="product-card">
-    <img :src="product.image" :alt="product.name" class="product-image" />
+    <img :src="'./' + product.image" :alt="product.name" class="product-image" />
     <div class="product-info">
       <h3>{{ product.name }}</h3>
       <p class="price">Rp {{ product.price.toLocaleString('id-ID') }}</p>

@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router' // <-- Ubah createWebHistory jadi createWebHashHistory
 import BerandaView from '../views/BerandaView.vue'
 import KeranjangView from '../views/KeranjangView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL), // <-- Ganti juga di sini
   routes: [
     {
       path: '/',
