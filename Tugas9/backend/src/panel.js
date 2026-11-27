@@ -33,7 +33,7 @@ export function renderPanel() {
       <div class="box">
         <h3>Tambah Barang (POST)</h3>
         <form id="formPost">
-          <input id="id" placeholder="ID" required />
+          <input id="id" type="number" placeholder="ID" required />
           <input id="nama" placeholder="Nama" required />
           <input id="jumlah" type="number" placeholder="Jumlah" required />
           <select id="kondisi">
@@ -47,27 +47,27 @@ export function renderPanel() {
 
       <script>
         function bukaId() {
-          const nilaiId = document.getElementById('cekId').value.trim();
-          if (!nilaiId) return;
-          window.location.href = '/api/inventaris/' + nilaiId;
+          const nilaiId = document.getElementById('cekId').value.trim()
+          if (!nilaiId) return
+          window.location.href = '/api/inventaris/' + nilaiId
         }
 
         formPost.addEventListener('submit', async (e) => {
-          e.preventDefault();
+          e.preventDefault()
           const res = await fetch('/api/inventaris', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              id: id.value,
+              id: Number(id.value),
               nama: nama.value,
               jumlah: Number(jumlah.value),
-              kondisi: kondisi.value,
-            }),
-          });
-          hasil.textContent = JSON.stringify(await res.json(), null, 2);
-        });
+              kondisi: kondisi.value
+            })
+          })
+          hasil.textContent = JSON.stringify(await res.json(), null, 2)
+        })
       </script>
     </body>
     </html>
-  `;
+  `
 }

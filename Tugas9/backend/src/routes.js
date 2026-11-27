@@ -1,48 +1,48 @@
-import { Hono } from 'hono';
-import { inventaris } from './data.js';
+import { Hono } from 'hono'
+import { inventaris } from './data.js'
 
-const routes = new Hono();
+const routes = new Hono()
 
-// Ambil semua barang
+// Menampilkan seluruh data inventaris
 routes.get('/api/inventaris', (c) => {
-  return c.json({
-    data: inventaris,
-    total: inventaris.length,
-  });
-});
+  return c.json({ inventaris })
+})
 
-// Ambil satu barang berdasarkan id
+// Menampilkan data inventaris berdasarkan id
 routes.get('/api/inventaris/:id', (c) => {
-  const id = c.req.param('id');
-  const barang = inventaris.find((item) => item.id === id);
+  const id = Number(c.req.param('id'))
+  const IdBarang = inventaris.find((item) => item.id === id)
 
-  if (!barang) {
-    return c.json({ pesan: 'Barang tidak ditemukan' }, 404);
+  if (!IdBarang) {
+    return c.json({
+      Status: 'eror',
+      Message: `Barang dengan id ${id} tidak ada`
+    }, 404)
   }
 
-  return c.json({ data: barang });
-});
+  return c.json({
+    Status: 'Succes',
+    IdBarang
+  })
+})
 
-// Tambah barang baru
+// Menambah data inventaris
 routes.post('/api/inventaris', async (c) => {
-  const body = await c.req.json();
+  const tambah = await c.req.json()
+  
+  const dataBaru = {
+    id: Number(tambah.id),
+    nama: tambah.nama,
+    jumlah: Number(tambah.jumlah),
+    kondisi: tambah.kondisi
+  }
 
-  const barangBaru = {
-    id: String(body.id),
-    nama: body.nama,
-    jumlah: Number(body.jumlah),
-    kondisi: body.kondisi,
-  };
+  inventaris.push(dataBaru)
 
-  inventaris.push(barangBaru);
+  return c.json({
+    Status: 'Succes',
+    data: dataBaru
+  }, 201)
+})
 
-  return c.json(
-    {
-      pesan: 'Barang berhasil ditambahkan',
-      data: barangBaru,
-    },
-    201
-  );
-});
-
-export default routes;
+export default routes
