@@ -1,0 +1,16 @@
+### 1. Ambil semua barang inventaris (GET)
+GET http://127.0.0.1:8787/api/inventaris
+
+### 2. Ambil satu barang berdasarkan ID (GET)
+GET http://127.0.0.1:8787/api/inventaris/2
+
+### 3. Tambah barang baru (POST)
+POST http://127.0.0.1:8787/api/inventaris
+Content-Type: application/json
+
+{
+  "id": 5,
+  "nama": "Mouse",
+  "jumlah": 18,
+  "kondisi": "Baik"
+}
